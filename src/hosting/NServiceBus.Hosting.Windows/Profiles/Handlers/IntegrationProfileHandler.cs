@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NServiceBus.UnitOfWork;
 
 namespace NServiceBus.Hosting.Windows.Profiles.Handlers
 {
@@ -13,7 +14,7 @@ namespace NServiceBus.Hosting.Windows.Profiles.Handlers
     {
         void IHandleProfile.ProfileActivated()
         {
-            if (!Configure.Instance.Configurer.HasComponent<IDocumentStore>())
+            if (!Configure.Instance.Configurer.HasComponent<IManageUnitsOfWork>())
                 Configure.Instance.RavenPersistence();
 
             if (!Configure.Instance.Configurer.HasComponent<IManageMessageFailures>())

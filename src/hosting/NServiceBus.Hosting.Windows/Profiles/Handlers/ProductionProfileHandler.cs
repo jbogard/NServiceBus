@@ -1,6 +1,7 @@
 ﻿using NServiceBus.Faults;
 using NServiceBus.Hosting.Profiles;
 using NServiceBus.Unicast.Subscriptions;
+using NServiceBus.UnitOfWork;
 
 namespace NServiceBus.Hosting.Windows.Profiles.Handlers
 {
@@ -10,7 +11,7 @@ internal class ProductionProfileHandler : IHandleProfile<Production>, IWantTheEn
 {
     void IHandleProfile.ProfileActivated()
     {
-        if (!Configure.Instance.Configurer.HasComponent<IDocumentStore>())
+        if (!Configure.Instance.Configurer.HasComponent<IManageUnitsOfWork>())
             Configure.Instance.RavenPersistence();
 
         if (!Configure.Instance.Configurer.HasComponent<ISagaPersister>())
